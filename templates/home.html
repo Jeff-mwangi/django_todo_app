@@ -1,0 +1,47 @@
+{% extends 'base.html'%}
+{% block content %}
+<!-- add task icon  -->
+<div class="row">
+    <div class="col-md-6">
+        <a href="{% url 'create-task' %}">
+            <i class="fa fa-plus-circle" aria-hidden="true"></i>Add
+        </a>
+    </div>
+</div>
+
+<!-- list items -->
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-default">
+            <div class="panel-heading mt-5">
+                <h3 class="panel-title mb-3">Todo List</h3>
+            </div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    {% for todo in todos %}
+                    <li class="list-group-item">
+                        {% if todo.completed %}
+                        
+                        <!-- navigating the badge onclick -->
+                        <span class="badge badge-success float-left">Completed</span>
+                        {% else %}
+                        <span class="badge badge-danger float-left">Incomplete</span>
+                        {% endif %}
+                        {{todo.title}}
+                        <!--adding an edit icon  -->
+                        <a href="" class="text-primary">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </a>
+                        <!-- adding a delete icon at the end -->
+                        <span class="float-right">
+                            <a href="{% url 'update-task' pk=todo.id %}" class="text-primary"> <i class="fa fa-pencil"></i></a>
+                            <a href="{% url 'delete-task' pk=todo.id %}" class="text-danger ml-3"> <i class="fa fa-trash"></i></a>
+                        </span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}

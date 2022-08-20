@@ -1,0 +1,22 @@
+{% extends 'base.html'%}
+{% block content %}
+
+<!-- delete confirmation -->
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Delete Confirmation for {{object.title}}</h3>
+            </div>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group" style="margin-top:30px; text-align: center;">
+                    <a href="{% url 'home' %}" class="btn btn-primary">Cancel</a>
+                    <button class="btn btn-danger m-l-5"  type="submit">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{%endblock%}
