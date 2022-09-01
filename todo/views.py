@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from django.views.generic import ListView, UpdateView, DeleteView
 from django.views.generic.edit import CreateView
-from todo.forms import TodoForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from todo.models import Todo
 
-# Create your views here.
+@login_required
 def home(request):
     context = {
         'todos': Todo.objects.all()
@@ -47,5 +48,15 @@ class DeleteTodo(DeleteView):
 
     def test_func(self):
         return self.request.user == self.get_object().author
+
+def search(request):
+    if request.method == 'POST':
+        search_term = request.POST['search']
+        search_results = Todo.objects.filter(title__icontains=search_term)
+        context = {
+            'search_term': search_term,
+            'search_results': search_results
+        }
+        return render(request, 'search.html', context)
     
 

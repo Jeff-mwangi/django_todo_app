@@ -1,0 +1,37 @@
+{% extends 'base.html'%}
+{% block content %}
+<h1>You searched for {{search}}</h1>
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Search Results</h3>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Created</th>
+                        <th>Updated</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for search_result in search_results %}
+                    <tr>
+                        <td>{{search_result.title}}</td>
+                        <td>{{search_result.description}}</td>
+                        <td>{{search_result.created_at}}</td>
+                        <td>{{search_result.updated_at}}</td>
+                        <td>
+                            <a href="" class="btn btn-primary">Edit</a>
+                            <a href="" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{%endblock%}

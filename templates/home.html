@@ -1,84 +1,225 @@
 {% extends 'base.html'%}
 {% block content %}
-    <!-- add task icon  -->
-    <div class="row">
-        <div class="col-md-12">
-            <i>Welcome back User</i>
-        </div>
-    <!-- list items -->
-    <div class="col-md-5 col-md-offset-3">
-        <div class="panel panel-default">
-            <div class="panel-heading mt-5">
-                <h3 class="panel-title mb-3">Todo List</h3>
+<div class="row">
+    <div class="col-md-4">
+        <article class="profile">
+            <div class="profile-image">
+                <img src="https://assets.codepen.io/285131/neongirl.jpg" />
             </div>
-            <span class="panel-body">
-                <ul class="list-group">
-                    {% for todo in todos %}
-                    <li class="list-group-item">
-                        {% if todo.completed %}
-                        <span><svg class="checkmark"
-                                viewBox="0 0 52 52">
-                                <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
-                                <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
-                            </svg>
-                        </span>
-                        {% else %}
-                        <span><svg class="checkmark" xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 52 52">
-                            <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
-                            <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
-                        </svg>
-                    </span>
-                        {% endif %}
-                        {{todo.title}}
-                        <!--adding an edit icon  -->
-                        <a href="" class="text-primary">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                        </a>
-                        <!-- adding a delete icon at the end -->
-                        <span class="float-right">
-                            <a href="{% url 'update-task' pk=todo.id %}" class="text-primary"> <i
-                                    class="fa fa-pencil"></i></a>
-                            <a href="{% url 'delete-task' pk=todo.id %}" class="text-danger ml-3"> <i
-                                    class="fa fa-trash"></i></a>
-                        </span>
-                    </li>
-                    {% endfor %}
-                    <div class="col-md-12">
-                        <a href="{% url 'create-task' %}">
-                            <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                        </a>
+            <h2 class="profile-username">{{user.username}}</h2>
+            <small class="profile-user-handle">{{user.email}}</small>
+            <div class="profile-actions">
+                <a href="{% url 'logout' %}" class="btn btn-danger mt-3">Logout <i class="fa fa-sign-out"></i></a>
+            </div>
+            <div class="profile-links">
+                <a href="#" class="link link--icon">
+                    <i class="ph-twitter-logo"></i>
+                </a>
+                <a href="#" class="link link--icon">
+                    <i class="ph-facebook-logo"></i>
+                </a>
+                <a href="#" class="link link--icon">
+                    <i class="ph-instagram-logo"></i>
+                </a>
+            </div>
+        </article>
+    </div>
+    <!-- add task icon  -->
+    <!-- list items -->
+    <div class="col-md-8 ">
+        <div class="panel panel-default center">
+            <!-- search input -->
+            <div class="panel-body">
+                <form method="POST" action="{% url 'search' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <fieldset>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="search" placeholder="Search">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-secondary" type="submit">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </fieldset>
                     </div>
-                </ul>
+                </form>
+                <span class="panel-body">
+                    <ul class="list-group">
+                        {% for todo in todos %}
+                        <li class="list-group-item">
+                            {% if todo.completed %}
+                            <span>
+                                <svg class="checkmark" viewBox="0 0 52 52">
+                                    <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
+                                    <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                                </svg>
+                            </span>
+                            {% else %}
+                            <span><svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                                    <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
+                                    <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                                </svg>
+
+                            </span>
+                            {% endif %}
+                            {{todo.title}}
+                            <!--adding an edit icon  -->
+                            <a href="" class="text-primary">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
+                            <!-- adding a delete icon at the end -->
+                            <span class="float-right">
+                                <a href="{% url 'update-task' pk=todo.id %}" class="text-primary"> <i
+                                        class="fa fa-pencil"></i></a>
+                                <a href="{% url 'delete-task' pk=todo.id %}" class="text-danger ml-3"> <i
+                                        class="fa fa-trash"></i></a>
+                            </span>
+                        </li>
+                        {% endfor %}
+                        <div class="col-md-12">
+                            <a href="{% url 'create-task' %}">
+                                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </ul>
             </div>
         </div>
     </div>
 </div>
 <style>
-    *{
+    body {
         text-align: center;
         justify-content: center;
+        display: flex;
+        align-items: center;
+        line-height: 1.5;
     }
-    .fa-plus-circle{
+
+    .profile {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding: 3rem;
+        width: 90%;
+        max-width: 300px;
+        background-color: #1b2028;
+        border-radius: 16px;
+        position: relative;
+        border: 3px solid transparent;
+        background-clip: padding-box;
+        text-align: center;
+        color: #f1f3f3;
+        background-image: linear-gradient(135deg,
+                rgba(#752e7c, 0.35),
+                rgba(#734a58, 0.1) 15%,
+                #1b2028 20%,
+                #1b2028 100%);
+    }
+
+    .profile::after {
+        content: "";
+        display: block;
+        top: -3px;
+        left: -3px;
+        bottom: -3px;
+        right: -3px;
+        z-index: -1;
+        position: absolute;
+        border-radius: 16px;
+        background-image: linear-gradient(135deg,
+                #752e7c,
+                #734a58 20%,
+                #1b2028 30%,
+                #2c333e 100%);
+    }
+
+    .profile-image {
+        border-radius: 50%;
+        overflow: hidden;
+        width: 175px;
+        height: 175px;
+        position: relative;
+    }
+
+    .profile-image img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+    }
+
+    .profile-username {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-top: 1.5rem;
+    }
+
+    .profile-user-handle {
+        color: #7d8396;
+    }
+
+    .profile-actions {
+        margin-top: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 0.25rem;
+    }
+
+    .profile-links {
+        margin-top: 3.5rem;
+    }
+
+    .link {
+        text-decoration: none;
+        color: #7d8396;
+        margin-left: 0.375rem;
+        margin-right: 0.375rem;
+    }
+
+    .fa-plus-circle {
         font-size: 2em;
     }
-.list-group-item {
-    margin-top: 10px;
-    border-radius: 12px;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
-}
-.list-group-item ::hover {
-    background-color: #1a173b80;
-    
-}
-.panel-body{
-    padding: 0px;
-    background-color: #1a173b80;
 
-}
-.list-group{
-    padding: -30px;
-}
+    input {
+        max-width: 400px;
+        border-radius: 50px;
+    }
+
+    input-group-btn {
+        width: 100%;
+        border-radius: 50px;
+        background-color: #00bcd4;
+    }
+
+    .list-group-item {
+        max-width: 500px;
+        color:black;
+        border-radius: 0 15px 0 15px;
+        margin-top: 5px;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+    }
+
+    .list-group-item:hover {
+        border-radius: 15px 0 15px 0;
+        transition: all 0.5s ease-in-out;
+    }
+
+    h3:hover {
+        position: relative;
+    }
+
+    .panel-body {
+        padding: 0px;
+
+    }
+
+    .list-group {
+        padding: -30px;
+    }
 
     .checkmark__circle {
         stroke-dasharray: 166;
@@ -126,9 +267,10 @@
             transform: scale3d(1.1, 1.1, 1)
         }
     }
+
     @keyframes fill {
         100% {
-            box-shadow: inset 0px 0px 0px 30px #7ac142
+            box-shadow: inset 0px 0px 0px 30px #4cbb30
         }
     }
 </style>
