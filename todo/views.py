@@ -1,3 +1,4 @@
+from email import message
 from django.shortcuts import render
 from django.views.generic import ListView, UpdateView, DeleteView
 from django.views.generic.edit import CreateView

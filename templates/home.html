@@ -9,7 +9,8 @@
             <h2 class="profile-username">{{user.username}}</h2>
             <small class="profile-user-handle">{{user.email}}</small>
             <div class="profile-actions">
-                <a href="{% url 'logout' %}" class="btn btn-danger mt-3">Logout <i class="fa fa-sign-out"></i></a>
+                <a href="{% url 'update-profile'%}" class="btn btn-primary mt-3">Profile</a>
+                <a href="{% url 'logout' %}" class="btn btn-danger mt-3 ml-2">Logout <i class="fa fa-sign-out"></i></a>
             </div>
             <div class="profile-links">
                 <a href="#" class="link link--icon">
@@ -37,7 +38,7 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" name="search" placeholder="Search">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-secondary" type="submit">
+                                    <button class="btn btn-primary" type="submit">
                                         <i class="fa fa-search"></i>
                                     </button>
                                 </span>
@@ -52,14 +53,14 @@
                             {% if todo.completed %}
                             <span>
                                 <svg class="checkmark" viewBox="0 0 52 52">
-                                    <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
-                                    <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                                    <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="green" />
+                                    <path class="checkmark__check" fill="green" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
                                 </svg>
                             </span>
                             {% else %}
                             <span><svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-                                    <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
-                                    <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                                    <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="red" />
+                                    <path class="checkmark__check" fill="red" d="M16 16 36 36 M36 16 16 36" />
                                 </svg>
 
                             </span>
@@ -79,8 +80,9 @@
                         </li>
                         {% endfor %}
                         <div class="col-md-12">
-                            <a href="{% url 'create-task' %}">
-                                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                            <a class="btn btn-primary mt-3" href="{% url 'create-task' %}">
+                                <i class="fa fa-plus" aria-hidden="true"> </i>
+                                Add New Todo
                             </a>
                         </div>
                     </ul>
@@ -185,7 +187,7 @@
     }
 
     input {
-        max-width: 400px;
+        max-width: 450px;
         border-radius: 50px;
     }
 
@@ -270,7 +272,7 @@
 
     @keyframes fill {
         100% {
-            box-shadow: inset 0px 0px 0px 30px #4cbb30
+            box-shadow: inset 0px 0px 0px 30px none
         }
     }
 </style>
