@@ -53,16 +53,19 @@
                             {% if todo.completed %}
                             <span>
                                 <svg class="checkmark" viewBox="0 0 52 52">
-                                    <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="green" />
-                                    <path class="checkmark__check" fill="green" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                                    <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
+                                    <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
                                 </svg>
                             </span>
+                            <!-- strike text -->
+                            <strike><span class="text-muted">{{todo.task}}</span>
                             {% else %}
-                            <span><svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                            <!-- make the checkmark another color -->
+                            <span>
+                                <svg class="checkmark" viewBox="0 0 0 0">
                                     <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="red" />
-                                    <path class="checkmark__check" fill="red" d="M16 16 36 36 M36 16 16 36" />
+                                    <path class="checkmark__check" fill="red" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
                                 </svg>
-
                             </span>
                             {% endif %}
                             {{todo.title}}
@@ -114,7 +117,7 @@
         text-align: center;
         color: #f1f3f3;
         background-image: linear-gradient(135deg,
-                rgba(#752e7c, 0.35),
+                rgba(#2e477c, 0.35),
                 rgba(#734a58, 0.1) 15%,
                 #1b2028 20%,
                 #1b2028 100%);
@@ -130,13 +133,8 @@
         z-index: -1;
         position: absolute;
         border-radius: 16px;
-        background-image: linear-gradient(135deg,
-                #752e7c,
-                #734a58 20%,
-                #1b2028 30%,
-                #2c333e 100%);
+        background-image: linear-gradient(135deg,#2e497c,#734a58 20%, #1b2028 30%, #2c333e 100%);
     }
-
     .profile-image {
         border-radius: 50%;
         overflow: hidden;
@@ -272,8 +270,9 @@
 
     @keyframes fill {
         100% {
-            box-shadow: inset 0px 0px 0px 30px none
+            box-shadow: inset 0px 0px 0px 30px #7ac142
         }
     }
+
 </style>
 {%endblock%}
