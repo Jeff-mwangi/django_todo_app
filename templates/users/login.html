@@ -1,8 +1,9 @@
 {% extends 'base.html'%}
 {% load crispy_forms_tags %}
 {%block content%}
+<div class="cotainer">
     <div class="row">
-        <div class="col-md-12 col-md-offset-3">
+        <div class="col-md-6 col-md-offset-5">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Login</h3>
@@ -19,11 +20,12 @@
                             <button type="submit" class="btn btn-success">Login</button>
                         </div>
                     </form>
+                    <a href="{% url 'password_reset' %}">Forgot password? Click here</a>
                     <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
                 </div>
             </div>
         </div>
-
+    </div>
         <style>
         </style>
 {%endblock%}
